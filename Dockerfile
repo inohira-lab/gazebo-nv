@@ -1,3 +1,4 @@
+# docker build -t einohira:gazebo-nv-18 .
 # refer to https://gitlab.com/nvidia/container-images/samples/-/blob/master/opengl/ubuntu16.04/glxgears/Dockerfile
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 
