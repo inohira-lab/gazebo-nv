@@ -1,0 +1,67 @@
+# mysim:noetic-amd-0.1
+# docker build -t mysim:noetic-amd-0.1 . -f Dockerfile.20-amd
+# refer to https://gitlab.com/nvidia/container-images/samples/-/blob/master/opengl/ubuntu16.04/glxgears/Dockerfile
+# FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu20.04
+FROM ros:noetic-ros-base-focal
+
+# ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES},display
+
+WORKDIR /root
+
+# avoid keyboard configuration
+ENV DEBIAN_FRONTEND noninteractive
+
+### BEGIN from https://github.com/osrf/docker_images/blob/master/ros/ardent/ubuntu/xenial/ros-core/Dockerfile
+### https://github.com/osrf/docker_images/blob/master/ros/noetic/ubuntu/focal/ros-core/Dockerfile
+
+# setup timezone
+# RUN echo 'Etc/UTC' > /etc/timezone && \
+#     ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+#     apt-get update && \
+#     apt-get install -q -y --no-install-recommends tzdata && \
+#     rm -rf /var/lib/apt/lists/*
+
+# install packages
+# RUN apt-get update && apt-get install -q -y --no-install-recommends \
+#     dirmngr \
+#     gnupg2 \
+#     curl \
+#     && rm -rf /var/lib/apt/lists/*
+
+# setup sources.list
+# RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
+
+# setup keys
+# RUN [ "/bin/bash", "-c", "set -o pipefail && curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -"]
+
+# setup environment
+# ENV LANG C.UTF-8
+# ENV LC_ALL C.UTF-8
+
+# ENV ROS_DISTRO noetic
+
+# label ros packages
+# LABEL sha256.ros-noetic-ros-core=4586cdeb59ec4fc87968f4013a839b78e71a262d3bbc7c60ba2b5befbc8d0928
+
+# install ros packages
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     ros-noetic-ros-core=1.5.0-1* \
+#     && rm -rf /var/lib/apt/lists/*
+
+### END
+
+# install ros packages
+RUN apt-get update && apt-get install -y \
+    ros-noetic-robot \
+    ros-noetic-simulators \
+    ros-noetic-navigation \
+    ros-noetic-gmapping \
+    ros-noetic-teleop-twist-keyboard \
+    ros-noetic-gazebo-ros-control \
+    ros-noetic-ros-controllers \
+    mesa-utils \
+    # python-pip \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+CMD ["bash"]
