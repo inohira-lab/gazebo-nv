@@ -1,0 +1,4 @@
+FROM einohira/ros:gazebo-nv-20-1.1
+
+RUN [ "/bin/bash", "-c", "set -o pipefail && curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -" ]
+
