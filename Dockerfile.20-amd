@@ -51,8 +51,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ### END
 
 # install ros packages
-RUN sudo sed -i.bak -r 's!http://archive.ubuntu.com/ubuntu!http://linux.yz.yamagata-u.ac.jp/ubuntu/!' /etc/apt/sources.list && \
-    apt-get update && \
+# RUN sudo sed -i.bak -r 's!http://archive.ubuntu.com/ubuntu!http://linux.yz.yamagata-u.ac.jp/ubuntu/!' /etc/apt/sources.list && \
+RUN apt-get update && \
     apt-get install -y \
       ros-noetic-robot \
       ros-noetic-simulators \
